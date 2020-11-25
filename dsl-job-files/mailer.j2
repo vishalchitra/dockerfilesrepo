@@ -1,0 +1,26 @@
+job('job_dsl_mailer') {
+    description('This is my dsl job with parameters and scm with cron expression and shell step and mails')
+
+    parameters {
+        stringParam('Planet', defaultValue = 'world', description = 'This is the world')
+        booleanParam('FLAG', true)
+        choiceParam('OPTION', ['option 1 (default)', 'option 2', 'option 3'])
+    }
+
+    scm {
+        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master')
+    }
+
+    triggers {
+        cron('H 5 * * 7')
+    }
+
+    steps {
+        shell("echo 'HELLO world'")
+        shell("echo 'Helloo worlddd to mail'")
+    }
+    
+    publishers {
+        mailer('vishalchitrar@gmail.com', true, true)
+    }
+}

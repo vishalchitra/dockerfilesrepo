@@ -1,0 +1,9 @@
+job('job_dsl_parameter') {
+    description('This is my dsl job with parameters')
+
+    parameters {
+        stringParam('Planet', defaultValue = 'world', description = 'This is the world')
+        booleanParam('FLAG', true)
+        choiceParam('OPTION', ['option 1 (default)', 'option 2', 'option 3'])
+    }
+}
