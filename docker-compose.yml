@@ -1,0 +1,33 @@
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins-ansible
+    build:
+      context: jenkins-ansible
+    ports:
+      - "8087:8080"
+    volumes:
+      - "C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins:/var/jenkins_home"
+    networks:
+      - net  
+  remote_host:
+    container_name: remote_host
+    image: remote_host
+    build:
+      context: remotefolder
+    volumes:
+      - "$PWD/aws-s3.sh:/tmp/script.sh"
+    networks:
+      - net
+  db_host:
+    container_name: db
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - "$PWD/db_data:/var/libs/mysql"
+    networks:
+      - net
+
+networks:
+  net:
